@@ -31,7 +31,7 @@ fun Int.divisorSum(): Int {
         }
         i++
     }
-    if (this % i == 0) sum += i
+    if (i * i == this && this % i == 0) sum += i
 
     return sum
 }
