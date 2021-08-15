@@ -1,0 +1,1 @@
+fun Int.factorial(): Int = if (this == 0) 1 else (1..this).reduce { acc, i -> acc * i }
