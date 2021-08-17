@@ -13,5 +13,3 @@ fun main() {
 
     println(max)
 }
-
-fun Int.isPalindrome(): Boolean = this == this.toString().reversed().toInt()
