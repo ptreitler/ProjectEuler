@@ -15,12 +15,5 @@ fun main() {
         factorial *= BigInteger.valueOf(i.toLong())
     }
     println("Factorial of $limit = $factorial")
-
-    var digitSum = BigInteger.ZERO
-    while (factorial > BigInteger.ZERO) {
-        digitSum += factorial.mod(BigInteger.TEN)
-        factorial /= BigInteger.TEN
-    }
-
-    println("digit sum = $digitSum")
+    println("digit sum = ${factorial.digitSum()}")
 }
