@@ -1,5 +1,3 @@
-import java.math.BigInteger
-
 /**
  * The cube, 41063625 (345^3), can be permuted to produce two other cubes: 56623104 (384^3) and 66430125 (405^3).
  * In fact, 41063625 is the smallest cube which has exactly three permutations of its digits which are also cube.
@@ -7,31 +5,22 @@ import java.math.BigInteger
  * Find the smallest cube for which exactly five permutations of its digits are cube.
  */
 
-private const val LIMIT = 10_000
-private val cubes = (1L..LIMIT).map { it.cubed() }.toSet()
-private val max = cubes.maxOrNull()!!
-
 fun main() {
-    var base = 345L
-    var cubePermutationCount = 0
-    while (cubePermutationCount != 5) {
+    var base = 1L
+    val cubes = mutableMapOf<String, Set<Long>>()
+    while(true) {
         val cube = base.cubed()
-        val cubePermutations = cubes.filter { it.isPermutationOf(cube) }
-//        println("base $base has ${cubePermutations.size} cube permutations: ${cubePermutations.joinToString(", ")}")
-        cubePermutationCount = cubePermutations.size
-        if (cubePermutationCount == 5) {
-            println(cubePermutations.first())
+        val cubeSorted = cube.toSortedDigits()
+        val cubePermutations = cubes.getOrDefault(cubeSorted, emptySet()) + cube
+        if (cubePermutations.size == 5) {
+            println(cubePermutations.sorted()[0])
             return
         }
-        base += 1
+        cubes[cubeSorted] = cubePermutations
+        base++
     }
-
 }
 
 private fun Long.cubed() = this * this * this
 
-private fun Long.isPermutationOf(other: Long): Boolean {
-    val digits = toString().toCharArray().sorted()
-    val otherDigits = other.toString().toCharArray().sorted()
-    return digits == otherDigits
-}
+private fun Long.toSortedDigits(): String = toString().toCharArray().sorted().joinToString("")
