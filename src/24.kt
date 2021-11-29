@@ -10,9 +10,9 @@
  * What is the millionth lexicographic permutation of the digits 0, 1, 2, 3, 4, 5, 6, 7, 8 and 9?
  */
 fun main() {
-    val result = mutableListOf<String>()
-    generatePermutations(mutableListOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9), result)
-    println(result.sorted()[999_999])
+    val permutations = listOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9).permutations()
+    val result = permutations.map { it.joinToString("") }.sorted()[999_999]
+    println(result)
 }
 
 
@@ -31,11 +31,4 @@ fun <T> generatePermutations(input: MutableList<T>, result: MutableList<String>,
             generatePermutations(input, result, k - 1)
         }
     }
-}
-
-fun <T> MutableList<T>.swap(a: Int, b: Int) {
-    assert(a >= 0 && a < this.size && b >= 0 && b < this.size && a != b)
-    val temp = this[a]
-    this[a] = this[b]
-    this[b] = temp
 }
